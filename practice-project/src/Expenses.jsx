@@ -5,7 +5,7 @@ export default function Expenses(props){
             <h1>Enter an expense</h1>
             <form>
                 <label htmlFor="name">Name : </label>
-                <input type="text" id="name"  onChange={(e)=>props.addName(e.target.value)}/><br/><br/>
+                <input type="text" id="name" onChange={(e)=>props.addName(e.target.value)}/><br/><br/>
                 <label htmlFor="amount">Amount : </label>
                 <input type="number" id="amount" onChange={(e)=>props.addAmount(e.target.value)}/><br/><br/>
                 <label htmlFor="category">Category : </label>

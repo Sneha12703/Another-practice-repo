@@ -1,6 +1,7 @@
 import Expenses from './Expenses.jsx';
 import Dashboard from './Dashboard.jsx';
 import {useState} from 'react';
+import {BrowserRouter, Routes,Route,Link} from 'react-router-dom';
 function App() {
     const [name,setName]=useState("");
     const [category,setCategory]=useState("");
@@ -8,12 +9,10 @@ function App() {
     const [expenses, setExpenses]= useState([
             {id:1,name:"Groceries",amount:50,category:"Food",date:new Date().toLocaleString()}]
         );
-    const totalExpenses=expenses.reduce((sum,exp)=>sum+exp.amount,0);
+    
     function addExpense(){
       const expense={id:expenses.length+1,name:name,amount:Number(amount),category:category,date:new Date().toLocaleString()};
       setExpenses(e=>[...e,expense]);
-      console.log(typeof expense.amount);
-      setTotalExpenses(e=>e+expense.amount);
     }
     function deleteExpense(id){
       const newExpense=expenses.filter(expense => expense.id!=id);
@@ -21,8 +20,14 @@ function App() {
     }
   return(
     <>
-    <Expenses deleteExpense={deleteExpense} expense={expenses} addExpense={addExpense} addCategory={setCategory} addName={setName} addAmount={setAmount}/>
-    <Dashboard totalExpenses={totalExpenses}/>
+    <BrowserRouter>
+    <Link to="/">Expenses</Link>
+    <Link to="/Dashboard">Dashboard</Link>
+    <Routes>
+    <Route path="/" element={<Expenses deleteExpense={deleteExpense} expense={expenses} addExpense={addExpense} addCategory={setCategory} addName={setName} addAmount={setAmount}/>}/>
+    <Route path="/Dashboard" element ={<Dashboard expenses={expenses}/>}/>
+    </Routes>
+    </BrowserRouter>
     </>
   )
 
